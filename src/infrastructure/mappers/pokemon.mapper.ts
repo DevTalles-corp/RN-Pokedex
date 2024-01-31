@@ -1,28 +1,23 @@
-import type { Pokemon } from '../../domain/entities/pokemon';
-import type { PokeAPIPokemon } from '../interfaces/pokepi.interfaces';
-
-
+import {getColorFromImage} from '../../config/helpers/get-color';
+import type {Pokemon} from '../../domain/entities/pokemon';
+import type {PokeAPIPokemon} from '../interfaces/pokepi.interfaces';
 
 export class PokemonMapper {
-
-
-  static pokeApiPokemonToEntity( data: PokeAPIPokemon ): Pokemon {
-
+  static async pokeApiPokemonToEntity(data: PokeAPIPokemon): Promise<Pokemon> {
     const sprites = PokemonMapper.getSprites(data);
     const avatar = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png`;
 
-
+    const color = await getColorFromImage(avatar);
 
     return {
-      id: data.id ,
+      id: data.id,
       name: data.name,
       avatar: avatar,
       sprites: sprites,
-      types: data.types.map( type => type.type.name )
-    }
-
+      types: data.types.map(type => type.type.name),
+      color: color,
+    };
   }
-
 
   static getSprites(data: PokeAPIPokemon): string[] {
     const sprites: string[] = [
@@ -45,6 +40,4 @@ export class PokemonMapper {
 
     return sprites;
   }
-
 }
-
