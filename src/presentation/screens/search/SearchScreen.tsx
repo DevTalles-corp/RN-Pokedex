@@ -94,5 +94,6 @@ const style = StyleSheet.create({
     opacity: 0.5,
     width: 300,
     height: 300,
+    zIndex: -1
   }
 })
