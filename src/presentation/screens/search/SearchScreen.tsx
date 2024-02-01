@@ -1,4 +1,4 @@
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {globalTheme} from '../../../config/theme/global-theme';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ActivityIndicator, TextInput, Text} from 'react-native-paper';
@@ -12,6 +12,7 @@ import {
 import {useMemo, useState} from 'react';
 import {FullScreenLoader} from '../../components/ui/FullScreenLoader';
 import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { PokeballBg } from '../../components/ui/PokeballBg';
 
 export const SearchScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -54,7 +55,7 @@ export const SearchScreen = () => {
   }
 
   return (
-    <View style={[globalTheme.globalMargin, {paddingTop: top + 10}]}>
+    <View style={[globalTheme.globalMargin, {paddingTop: top + 10, flex: 1}]}>
       <TextInput
         placeholder="Buscar Pokémon"
         mode="flat"
@@ -78,6 +79,20 @@ export const SearchScreen = () => {
         showsVerticalScrollIndicator={false}
         ListFooterComponent={ <View style={{ height: 150 }} />}
       />
+
+      <PokeballBg style={ style.pokeballBg }  />
     </View>
   );
 };
+
+
+const style = StyleSheet.create({
+  pokeballBg: {
+    position: 'absolute',
+    bottom: -50,
+    left: -100,
+    opacity: 0.5,
+    width: 300,
+    height: 300,
+  }
+})
